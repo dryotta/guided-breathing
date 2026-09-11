@@ -1,0 +1,589 @@
+:root {
+  --bg: #0a0e14;
+  --bg-lift: #141b26;
+  --text: #f2f5f9;
+  --text-dim: #8b97a8;
+  --text-faint: #5a6676;
+  --line: rgba(255, 255, 255, 0.09);
+
+  --warm-1: #ff6b5a;
+  --warm-2: #ffa24c;
+  --cool-1: #63d2ff;
+  --cool-2: #2f8fe0;
+
+  --stage-size: min(78vw, 54vh, 420px);
+  --gutter: clamp(20px, 6vw, 40px);
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
+  /* Kill the 300ms tap delay and iOS double-tap zoom. */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(120% 80% at 50% -10%, #1b2533 0%, transparent 60%),
+    radial-gradient(90% 60% at 50% 110%, #101722 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+  /* dvh keeps the layout stable while mobile browser chrome collapses. */
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding:
+    calc(env(safe-area-inset-top) + var(--gutter))
+    calc(env(safe-area-inset-right) + var(--gutter))
+    calc(env(safe-area-inset-bottom) + var(--gutter))
+    calc(env(safe-area-inset-left) + var(--gutter));
+  margin: 0 auto;
+  max-width: 560px;
+  animation: screen-in 420ms ease both;
+}
+
+.screen.no-enter {
+  animation: none;
+}
+
+@keyframes screen-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* ---------------------------------------------------------------- buttons */
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: 0;
+  background: none;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--cool-1);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+.primary-button {
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: 999px;
+  font-size: 1.0625rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  color: #0a0e14;
+  background: linear-gradient(135deg, var(--cool-1), var(--cool-2));
+  box-shadow: 0 12px 32px -12px rgba(99, 210, 255, 0.7);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.primary-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 6px 18px -10px rgba(99, 210, 255, 0.7);
+}
+
+.ghost-button {
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 550;
+  color: var(--text-dim);
+  border: 1px solid var(--line);
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.ghost-button:active {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border-radius: 50%;
+  color: var(--text-dim);
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.icon-button svg {
+  width: 21px;
+  height: 21px;
+}
+
+.icon-button:active {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+/* --------------------------------------------------------------- settings */
+
+.screen-settings {
+  justify-content: flex-start;
+}
+
+.intro {
+  padding: clamp(12px, 5vh, 48px) 0 clamp(24px, 5vh, 40px);
+}
+
+.intro-mark {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cool-1);
+  background: radial-gradient(circle, rgba(99, 210, 255, 0.28), transparent 70%);
+  box-shadow: 0 0 28px -4px rgba(99, 210, 255, 0.5);
+}
+
+.intro-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 7vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.intro-tagline {
+  margin: 10px 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3.5vh, 30px);
+}
+
+.field-label {
+  margin: 0 0 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.option-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.option {
+  flex: 1 1 auto;
+  min-width: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+  padding: 13px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--text-dim);
+  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.option-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.option-hint {
+  font-size: 0.6875rem;
+  letter-spacing: 0.01em;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+.option[aria-checked='true'] {
+  color: var(--text);
+  border-color: rgba(99, 210, 255, 0.55);
+  background: rgba(99, 210, 255, 0.1);
+}
+
+.option[aria-checked='true'] .option-hint {
+  color: rgba(99, 210, 255, 0.85);
+}
+
+/* ---------------------------------------------------------------- session */
+
+.screen-session {
+  justify-content: space-between;
+  gap: 16px;
+  transition: opacity 280ms ease;
+}
+
+.screen-session.is-paused {
+  opacity: 0.45;
+}
+
+.session-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.session-heading {
+  flex: 1 1 auto;
+  text-align: center;
+  min-width: 0;
+}
+
+.session-title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.session-clock {
+  margin: 5px 0 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.stage {
+  position: relative;
+  flex: 0 0 auto;
+  align-self: center;
+  width: var(--stage-size);
+  height: var(--stage-size);
+  margin: auto 0;
+}
+
+.rings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.guide {
+  stroke: rgba(255, 255, 255, 0.26);
+  stroke-width: 0.5;
+}
+
+.guide-inner {
+  stroke: rgba(255, 255, 255, 0.1);
+}
+
+.echo {
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 0.5;
+}
+
+.orb-ring {
+  transition: opacity 520ms ease;
+}
+
+.is-inhale .orb-ring-cool,
+.is-exhale .orb-ring-warm {
+  opacity: 0;
+}
+
+/*
+ * The soft glow is a GPU-composited transform so it stays smooth on phones;
+ * the crisp outline stays in SVG so its stroke width never scales.
+ */
+.orb-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate3d(-50%, -50%, 0) scale(var(--orb-scale, 0.37));
+  transform-origin: center;
+  will-change: transform;
+  transition: background 520ms ease;
+  backface-visibility: hidden;
+}
+
+.is-inhale .orb-glow {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 107, 90, 0) 28%,
+    rgba(255, 122, 74, 0.2) 62%,
+    rgba(255, 162, 76, 0.42) 88%,
+    rgba(255, 162, 76, 0) 100%
+  );
+}
+
+.is-exhale .orb-glow {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(99, 210, 255, 0) 28%,
+    rgba(70, 160, 220, 0.18) 62%,
+    rgba(99, 210, 255, 0.36) 88%,
+    rgba(99, 210, 255, 0) 100%
+  );
+}
+
+.cue {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: clamp(4px, 4vh, 40px);
+  min-height: 4.5em;
+}
+
+.cue-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-top: 0.62em;
+  border-radius: 50%;
+  border: 1.5px solid var(--warm-2);
+  transition: border-color 520ms ease;
+}
+
+.is-exhale .cue-dot {
+  border-color: var(--cool-1);
+}
+
+.cue-text {
+  margin: 0;
+  font-size: clamp(1.3rem, 6vw, 1.75rem);
+  font-weight: 650;
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+}
+
+/* --------------------------------------------------------------- complete */
+
+.screen-complete {
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.complete-mark {
+  width: 76px;
+  height: 76px;
+  margin-bottom: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(99, 210, 255, 0.6);
+  background: radial-gradient(circle, rgba(99, 210, 255, 0.22), transparent 72%);
+  box-shadow: 0 0 48px -6px rgba(99, 210, 255, 0.45);
+  animation: breathe 5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+.complete-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  font-weight: 700;
+}
+
+.complete-body {
+  margin: 12px 0 0;
+  max-width: 22em;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.screen-complete .actions {
+  width: 100%;
+  max-width: 340px;
+  margin-top: 44px;
+}
+
+/* ------------------------------------------------------------ adaptations */
+
+@media (min-width: 700px) and (min-height: 640px) {
+  :root {
+    --stage-size: min(46vh, 400px);
+  }
+
+  /* Centred reads better than the phone's left-aligned cue on a wide screen. */
+  .cue {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cue-text {
+    text-align: center;
+  }
+
+  .cue-dot {
+    margin-top: 0;
+  }
+}
+
+/* Short landscape phones: two columns of settings, and a smaller orb so the
+   cue text always stays on screen. */
+@media (orientation: landscape) and (max-height: 560px) {
+  :root {
+    --stage-size: min(52vh, 220px);
+    --gutter: 16px;
+  }
+
+  .screen-settings {
+    max-width: 860px;
+  }
+
+  .fields {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    gap: 14px 20px;
+    align-items: start;
+  }
+
+  /* Duration and language stack in the narrow column; the five pace options
+     get the taller column next to them. */
+  .field:nth-child(1) {
+    grid-area: 1 / 1;
+  }
+
+  .field:nth-child(2) {
+    grid-area: 1 / 2 / 3 / 3;
+  }
+
+  .field:nth-child(3) {
+    grid-area: 2 / 1;
+  }
+
+  .field-label {
+    margin-bottom: 8px;
+  }
+
+  .option {
+    padding: 9px 10px;
+    border-radius: 13px;
+  }
+
+  .option-label {
+    font-size: 0.875rem;
+  }
+
+  .intro {
+    padding: 0 0 14px;
+  }
+
+  .intro-title {
+    font-size: 1.5rem;
+  }
+
+  .intro-mark {
+    width: 26px;
+    height: 26px;
+    margin-bottom: 10px;
+  }
+
+  .intro-tagline {
+    margin-top: 6px;
+    font-size: 0.8125rem;
+  }
+
+  .actions {
+    padding-top: 18px;
+  }
+
+  .primary-button {
+    padding: 14px 24px;
+  }
+
+  .cue {
+    min-height: 0;
+    padding-bottom: 0;
+  }
+
+  .cue-text {
+    font-size: 1.125rem;
+  }
+
+  .session-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .session-clock {
+    margin: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen,
+  .complete-mark {
+    animation: none;
+  }
+
+  .orb-glow,
+  .orb-ring,
+  .cue-dot,
+  .primary-button,
+  .option,
+  .icon-button {
+    transition-duration: 1ms;
+  }
+}

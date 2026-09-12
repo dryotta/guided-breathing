@@ -542,12 +542,8 @@ button:focus-visible {
     gap: 16px;
   }
 
-  .screen-settings .option {
+  .screen-settings .fields .option {
     padding: 10px;
-  }
-
-  .screen-settings .field-language .option {
-    padding: 7px 10px;
   }
 
   .screen-settings .actions {

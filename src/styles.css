@@ -636,10 +636,6 @@ button:focus-visible {
     padding-bottom: 0;
   }
 
-  .cue-text {
-    font-size: 1em;
-  }
-
   .session-heading {
     display: flex;
     align-items: baseline;

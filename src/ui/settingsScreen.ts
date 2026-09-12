@@ -83,6 +83,7 @@ export function renderSettingsScreen(
   const start = el('button', { type: 'button', class: 'primary-button' }, [t.start]);
   start.addEventListener('click', handlers.onStart);
 
+  // Keep this compact toggle above the landing content to preserve room for starting a session.
   const language = optionGroup('locale', t.languageLabel, locales, settings.locale, (locale, key) =>
     handlers.onChange({ locale }, key),
   );

@@ -83,7 +83,13 @@ export function renderSettingsScreen(
   const start = el('button', { type: 'button', class: 'primary-button' }, [t.start]);
   start.addEventListener('click', handlers.onStart);
 
+  const language = optionGroup('locale', t.languageLabel, locales, settings.locale, (locale, key) =>
+    handlers.onChange({ locale }, key),
+  );
+  language.classList.add('field-language');
+
   return el('main', { class: 'screen screen-settings' }, [
+    language,
     el('header', { class: 'intro' }, [
       el('div', { class: 'intro-mark', 'aria-hidden': 'true' }),
       el('h1', { class: 'intro-title' }, [t.appTitle]),
@@ -99,9 +105,6 @@ export function renderSettingsScreen(
       ),
       optionGroup('level', t.levelLabel, levels, settings.level, (level, key) =>
         handlers.onChange({ level }, key),
-      ),
-      optionGroup('locale', t.languageLabel, locales, settings.locale, (locale, key) =>
-        handlers.onChange({ locale }, key),
       ),
     ]),
     el('div', { class: 'actions' }, [start]),

@@ -46,7 +46,7 @@ describe('buildCycle', () => {
       const phases = buildCycle(level);
       const first = phases[0];
       const second = phases[1];
-      expect(second?.durationMs).toBeLessThanOrEqual(2_000);
+      expect(second?.durationMs).toBeLessThanOrEqual(1_500);
       expect(second?.durationMs).toBeGreaterThanOrEqual(600);
       expect(second?.durationMs ?? 0).toBeLessThan(first?.durationMs ?? 0);
     }
@@ -54,9 +54,9 @@ describe('buildCycle', () => {
 
   it('clamps the sharp inhale at both ends', () => {
     expect(sharpInhaleMs(1_000)).toBe(600);
-    expect(sharpInhaleMs(5_000)).toBe(1_500);
-    expect(sharpInhaleMs(10_000)).toBe(2_000);
-    expect(sharpInhaleMs(100_000)).toBe(2_000);
+    expect(sharpInhaleMs(3_000)).toBe(900);
+    expect(sharpInhaleMs(10_000)).toBe(1_500);
+    expect(sharpInhaleMs(100_000)).toBe(1_500);
   });
 
   it('spends the time saved by the cap on the first inhale', () => {

@@ -57,12 +57,12 @@ export const FIRST_INHALE_PEAK = 0.63;
 
 /**
  * The sharp second inhale is a quick top-up, not a second slow breath. It takes
- * a share of the inhale budget but never runs longer than two seconds, however
+ * a share of the inhale budget but never runs longer than 1.5 seconds, however
  * slow the level is, so it keeps its sudden character all the way up to Elite.
  */
 const SHARP_INHALE_RATIO = 0.3;
 const SHARP_INHALE_MIN_MS = 600;
-export const SHARP_INHALE_MAX_MS = 2_000;
+export const SHARP_INHALE_MAX_MS = 1_500;
 
 export function sharpInhaleMs(inhaleMs: number): number {
   const ratioed = inhaleMs * SHARP_INHALE_RATIO;

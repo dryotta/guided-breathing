@@ -172,8 +172,40 @@ button:focus-visible {
   justify-content: flex-start;
 }
 
+.field-language {
+  align-self: flex-end;
+}
+
+/* Keep the visible top control compact while retaining its heading for assistive technology. */
+.field-language .field-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.field-language .option-group {
+  gap: 4px;
+}
+
+.field-language .option {
+  flex: 0 0 auto;
+  min-width: 0;
+  padding: 7px 10px;
+  border-radius: 999px;
+}
+
+.field-language .option-label {
+  font-size: 0.75rem;
+}
+
 .intro {
-  padding: clamp(12px, 5vh, 48px) 0 clamp(24px, 5vh, 40px);
+  padding: clamp(8px, 3vh, 28px) 0 clamp(20px, 4vh, 32px);
 }
 
 .intro-mark {
@@ -480,6 +512,46 @@ button:focus-visible {
 
   .cue-dot {
     margin-top: 0;
+  }
+}
+
+@media (max-height: 700px) {
+  .screen-settings {
+    --gutter: 16px;
+  }
+
+  .screen-settings .intro {
+    padding: 8px 0 16px;
+  }
+
+  .screen-settings .intro-mark {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 12px;
+  }
+
+  .screen-settings .intro-title {
+    font-size: 1.625rem;
+  }
+
+  .screen-settings .intro-tagline {
+    margin-top: 6px;
+  }
+
+  .screen-settings .fields {
+    gap: 16px;
+  }
+
+  .screen-settings .fields .option {
+    padding: 10px;
+  }
+
+  .screen-settings .actions {
+    padding-top: 16px;
+  }
+
+  .screen-settings .primary-button {
+    padding: 14px 24px;
   }
 }
 

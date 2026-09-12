@@ -176,6 +176,7 @@ button:focus-visible {
   align-self: flex-end;
 }
 
+/* Keep the visible top control compact while retaining its heading for assistive technology. */
 .field-language .field-label {
   position: absolute;
   width: 1px;

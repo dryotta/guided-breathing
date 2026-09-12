@@ -415,11 +415,13 @@ button:focus-visible {
 }
 
 .cue {
+  font-size: clamp(1.3rem, 6vw, 1.75rem);
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 0.6em;
   padding-bottom: clamp(4px, 4vh, 40px);
-  min-height: 4.5em;
+  /* Reserve responsive cue space so label wrapping does not move the orb. */
+  min-height: 5em;
 }
 
 .cue-dot {
@@ -438,7 +440,7 @@ button:focus-visible {
 
 .cue-text {
   margin: 0;
-  font-size: clamp(1.3rem, 6vw, 1.75rem);
+  font-size: 1em;
   font-weight: 650;
   line-height: 1.32;
   letter-spacing: -0.01em;
@@ -629,12 +631,9 @@ button:focus-visible {
   }
 
   .cue {
-    min-height: 0;
-    padding-bottom: 0;
-  }
-
-  .cue-text {
     font-size: 1.125rem;
+    min-height: 2.7em;
+    padding-bottom: 0;
   }
 
   .session-heading {

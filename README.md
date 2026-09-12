@@ -51,15 +51,17 @@ behaviour for a timed breathing practice. Use the pause button to stop the clock
 
 A level advertises a total inhale and exhale time. The inhale budget is split so
 the advertised numbers stay exact (`inhale + exhale === cycle`), while the second
-inhale stays genuinely short — 30% of the inhale, clamped to 0.6–3 s:
+inhale stays a genuine top-up — 30% of the inhale, clamped to 0.6–2 s. Time the
+cap trims off the top-up goes to the first inhale, which keeps the sharp breath
+sudden even at the slowest paces:
 
 | Level | Inhale | Sharp inhale | Exhale | Cycle |
 | --- | --- | --- | --- | --- |
 | Relax | 2.1 s | 0.9 s | 7 s | 10 s |
 | Easy | 3.5 s | 1.5 s | 10 s | 15 s |
-| Intermediate | 7 s | 3 s | 20 s | 30 s |
-| Hard | 17 s | 3 s | 40 s | 60 s |
-| Elite | 27 s | 3 s | 60 s | 90 s |
+| Intermediate | 8 s | 2 s | 20 s | 30 s |
+| Hard | 18 s | 2 s | 40 s | 60 s |
+| Elite | 28 s | 2 s | 60 s | 90 s |
 
 ## Rendering
 

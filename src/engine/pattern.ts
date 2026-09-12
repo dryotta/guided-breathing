@@ -56,12 +56,13 @@ const easeOutQuad = (t: number): number => 1 - (1 - t) * (1 - t);
 export const FIRST_INHALE_PEAK = 0.63;
 
 /**
- * The sharp second inhale takes a fraction of the inhale budget but stays short
- * in absolute terms, so it still feels like a quick top-up at the slow paces.
+ * The sharp second inhale is a quick top-up, not a second slow breath. It takes
+ * a share of the inhale budget but never runs longer than two seconds, however
+ * slow the level is, so it keeps its sudden character all the way up to Elite.
  */
 const SHARP_INHALE_RATIO = 0.3;
 const SHARP_INHALE_MIN_MS = 600;
-const SHARP_INHALE_MAX_MS = 3_000;
+export const SHARP_INHALE_MAX_MS = 2_000;
 
 export function sharpInhaleMs(inhaleMs: number): number {
   const ratioed = inhaleMs * SHARP_INHALE_RATIO;
@@ -70,6 +71,8 @@ export function sharpInhaleMs(inhaleMs: number): number {
 
 export function buildCycle(level: Level): readonly Phase[] {
   const sharp = sharpInhaleMs(level.inhaleMs);
+  // The first inhale takes whatever the sharp top-up does not, so any time the
+  // cap trims off the top-up is spent here and the advertised total stays exact.
   const first = level.inhaleMs - sharp;
   return [
     { id: 'inhale', durationMs: first, from: 0, to: FIRST_INHALE_PEAK, ease: easeInOutSine },

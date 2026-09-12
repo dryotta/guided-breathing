@@ -318,18 +318,23 @@ button:focus-visible {
   overflow: visible;
 }
 
+/*
+ * The three guide rings stay on screen for the whole session: the orb passes
+ * the first on the way up, tops out on the outermost during the sharp second
+ * inhale, and settles back onto the innermost when the exhale is finished.
+ * They brighten outward, as in the reference design.
+ */
 .guide {
-  stroke: rgba(255, 255, 255, 0.26);
-  stroke-width: 0.5;
+  stroke-width: 0.9;
+  stroke: rgba(255, 255, 255, 0.32);
 }
 
-.guide-inner {
-  stroke: rgba(255, 255, 255, 0.1);
+.guide-first {
+  stroke: rgba(255, 255, 255, 0.24);
 }
 
-.echo {
-  stroke: rgba(255, 255, 255, 0.3);
-  stroke-width: 0.5;
+.guide-empty {
+  stroke: rgba(255, 255, 255, 0.18);
 }
 
 .orb-ring {
@@ -350,7 +355,7 @@ button:focus-visible {
   top: 50%;
   left: 50%;
   border-radius: 50%;
-  transform: translate3d(-50%, -50%, 0) scale(var(--orb-scale, 0.37));
+  transform: translate3d(-50%, -50%, 0) scale(var(--orb-scale, 0.375));
   transform-origin: center;
   will-change: transform;
   transition: background 520ms ease;

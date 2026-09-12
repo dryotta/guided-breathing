@@ -4,7 +4,6 @@ import {
   buildCycle,
   cycleDurationMs,
   getLevel,
-  inhaleProgress,
   sampleCycle,
   sharpInhaleMs,
 } from './pattern';
@@ -108,16 +107,5 @@ describe('sampleCycle', () => {
   it('treats negative time as the start of the cycle', () => {
     expect(sampleCycle(phases, -500).phase.id).toBe('inhale');
     expect(sampleCycle(phases, -500).expansion).toBeCloseTo(0, 6);
-  });
-});
-
-describe('inhaleProgress', () => {
-  const phases = buildCycle(getLevel('relax'));
-
-  it('spans 0..1 across both inhale phases and is 0 while exhaling', () => {
-    expect(inhaleProgress(sampleCycle(phases, 0), phases)).toBeCloseTo(0, 6);
-    expect(inhaleProgress(sampleCycle(phases, 1_500), phases)).toBeCloseTo(0.5, 6);
-    expect(inhaleProgress(sampleCycle(phases, 2_999), phases)).toBeGreaterThan(0.99);
-    expect(inhaleProgress(sampleCycle(phases, 6_000), phases)).toBe(0);
   });
 });

@@ -48,8 +48,12 @@ export interface Phase {
 const easeInOutSine = (t: number): number => 0.5 - Math.cos(Math.PI * t) / 2;
 const easeOutQuad = (t: number): number => 1 - (1 - t) * (1 - t);
 
-/** Expansion reached at the end of the first inhale, before the sharp top-up. */
-const FIRST_INHALE_PEAK = 0.78;
+/**
+ * Expansion reached at the end of the first inhale, before the sharp top-up.
+ * The first inhale covers most of the *time* but only part of the expansion,
+ * which is what gives the second inhale its sharp, sudden character.
+ */
+export const FIRST_INHALE_PEAK = 0.63;
 
 /**
  * The sharp second inhale takes a fraction of the inhale budget but stays short
@@ -121,19 +125,4 @@ export function sampleCycle(phases: readonly Phase[], elapsedMs: number): CycleS
   }
 
   throw new Error('Cycle must contain at least one phase');
-}
-
-/** Combined progress through both inhale phases, 0..1; 0 while exhaling. */
-export function inhaleProgress(sample: CycleSample, phases: readonly Phase[]): number {
-  if (sample.phase.id === 'exhale') return 0;
-  const first = phases[0];
-  const second = phases[1];
-  if (!first || !second) return 0;
-  const inhaleTotal = first.durationMs + second.durationMs;
-  if (inhaleTotal <= 0) return 0;
-  const elapsed =
-    sample.phaseIndex === 0
-      ? sample.phaseProgress * first.durationMs
-      : first.durationMs + sample.phaseProgress * second.durationMs;
-  return elapsed / inhaleTotal;
 }

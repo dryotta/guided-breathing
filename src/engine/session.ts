@@ -1,12 +1,10 @@
 import { SessionClock } from './clock';
-import { type CycleSample, type Phase, cycleDurationMs, inhaleProgress, sampleCycle } from './pattern';
+import { type CycleSample, type Phase, cycleDurationMs, sampleCycle } from './pattern';
 
 export interface SessionFrame {
   readonly elapsedMs: number;
   readonly remainingMs: number;
   readonly sample: CycleSample;
-  /** Combined inhale progress, 0..1 (0 during the exhale). */
-  readonly inhale: number;
   readonly isPaused: boolean;
   readonly isComplete: boolean;
 }
@@ -115,7 +113,6 @@ export class BreathingSession {
       elapsedMs,
       remainingMs: this.clock.remainingMs(now),
       sample,
-      inhale: inhaleProgress(sample, this.#phases),
       isPaused: !this.clock.isRunning,
       isComplete: complete,
     });

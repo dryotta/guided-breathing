@@ -1,5 +1,7 @@
 # Guided Breathing · 引导呼吸
 
+### 🌬️ [Open the app: dryotta.github.io/guided-breathing](https://dryotta.github.io/guided-breathing/)
+
 A responsive guided-breathing web app built around the **physiological sigh**: a
 long nasal inhale, a short sharp top-up inhale, then a slow mouth exhale.
 

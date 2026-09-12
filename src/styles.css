@@ -418,7 +418,7 @@ button:focus-visible {
   font-size: clamp(1.3rem, 6vw, 1.75rem);
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 0.6em;
   padding-bottom: clamp(4px, 4vh, 40px);
   /* Reserve responsive cue space so label wrapping does not move the orb. */
   min-height: 5em;
